@@ -14,9 +14,21 @@ public class UserServiceImpl implements UserService {
     private ComplianceRepository complianceRepository;
 
     @Override
-    public String addUser(User user) {
-        User savedUser = userRepository.save(user);
+    public long addOrUpdateUser(User user) {
+        User savedUser = userRepository.findByPcp(user.getPcp());
+        long pcp;
+
+        if (savedUser != null) {
+            savedUser.setName(user.getName());
+            savedUser.setAddress(user.getAddress());
+            savedUser.setCompliance(user.getCompliance());
+            pcp = 0;
+        } else {
+            savedUser = user;
+            pcp = savedUser.getPcp();
+        }
+        userRepository.save(savedUser);
         complianceRepository.save(user.getCompliance());
-        return User.PREFIX + User.df.format(savedUser.getPcp());
+        return pcp;
     }
 }

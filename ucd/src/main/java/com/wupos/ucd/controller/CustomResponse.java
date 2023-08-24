@@ -2,7 +2,7 @@ package com.wupos.ucd.controller;
 
 public class CustomResponse {
     public static class UserResponse {
-        private String pcp;
+        private long pcp;
         private String message;
 
         public UserResponse() {
@@ -12,16 +12,16 @@ public class CustomResponse {
             this.message = message;
         }
 
-        public UserResponse(String pcp, String message) {
+        public UserResponse(long pcp, String message) {
             this.pcp = pcp;
             this.message = message;
         }
 
-        public String getPcp() {
+        public long getPcp() {
             return pcp;
         }
 
-        public void setPcp(String pcp) {
+        public void setPcp(long pcp) {
             this.pcp = pcp;
         }
 
@@ -36,9 +36,9 @@ public class CustomResponse {
         @Override
         public String toString() {
             return "AddUserResponse{" +
-                    "pcp='" + pcp + '\'' +
-                    ", message='" + message + '\'' +
-                    '}';
+                "pcp='" + pcp + '\'' +
+                ", message='" + message + '\'' +
+                '}';         
         }
     }
 }
