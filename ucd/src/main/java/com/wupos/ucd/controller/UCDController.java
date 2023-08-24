@@ -21,6 +21,7 @@ public class UCDController {
     public ResponseEntity<?> addUser(@RequestBody User user) {
         try {
             long pcp = userService.addOrUpdateUser(user);
+            System.out.println(pcp);
             if (pcp == 0) {
                 return new ResponseEntity<>("Successfully updated", HttpStatus.OK);
             } else {

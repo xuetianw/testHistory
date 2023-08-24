@@ -20,15 +20,19 @@ public class UserServiceImpl implements UserService {
 
         if (savedUser != null) {
             savedUser.setName(user.getName());
+            savedUser.setPhoneNumber(user.getPhoneNumber());
             savedUser.setAddress(user.getAddress());
             savedUser.setCompliance(user.getCompliance());
+            userRepository.save(savedUser);
+            complianceRepository.save(user.getCompliance());
             pcp = 0;
         } else {
             savedUser = user;
+            userRepository.save(savedUser);
+            complianceRepository.save(user.getCompliance());
             pcp = savedUser.getPcp();
+
         }
-        userRepository.save(savedUser);
-        complianceRepository.save(user.getCompliance());
         return pcp;
     }
 }
