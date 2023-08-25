@@ -13,25 +13,30 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ComplianceRepository complianceRepository;
 
-    @Override
-    public long addOrUpdateUser(User user) {
-        User savedUser = userRepository.findByPcp(user.getPcp());
-        long pcp;
-
-        if (savedUser != null) {
+    private void saveUser(User savedUser,
+        User user, 
+        UserRepository userRepository, 
+        ComplianceRepository complianceRepository) {
             savedUser.setName(user.getName());
             savedUser.setPhoneNumber(user.getPhoneNumber());
             savedUser.setAddress(user.getAddress());
             savedUser.setCompliance(user.getCompliance());
             userRepository.save(savedUser);
             complianceRepository.save(user.getCompliance());
+    }
+
+    @Override
+    public long addOrUpdateUser(User user) {
+        User savedUser = userRepository.findByPcp(user.getPcp());
+        long pcp;
+
+        if (savedUser != null) {
+            saveUser(savedUser, user, userRepository, complianceRepository);
             pcp = 0;
         } else {
-            savedUser = user;
-            userRepository.save(savedUser);
-            complianceRepository.save(user.getCompliance());
+            savedUser = new User();
+            saveUser(savedUser, user, userRepository, complianceRepository);
             pcp = savedUser.getPcp();
-
         }
         return pcp;
     }

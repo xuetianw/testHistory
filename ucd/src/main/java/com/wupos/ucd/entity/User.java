@@ -2,13 +2,9 @@ package com.wupos.ucd.entity;
 
 import jakarta.persistence.*;
 
-import java.text.DecimalFormat;
-
 @Entity
 @Table(name = "user")
 public class User {
-    public final static String PREFIX = "ABB";
-    public final static DecimalFormat df = new DecimalFormat("00000");
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pcp")
